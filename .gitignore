@@ -1,3 +1,4 @@
 .env
 assistances.json
 student.json
+__pycache__/
