@@ -24,7 +24,7 @@ def menu():
             subject_id = input("Ingrese el ID de la materia para ver asistencias: ")
             client = APIClient()
             if client.fetch_assistances_data(subject_id):
-                AssistancesTable().display_table(subject_id)
+                AssistancesTable().display_table()
             else:
                 print("No se encontraron asistencias para la materia con ID:", subject_id)
         elif choice == "3":
