@@ -40,13 +40,12 @@ class APIClient:
         Raises:
             requests.exceptions.HTTPError: Si la respuesta HTTP contiene un código de estado de error.
         """
-
         try:
             response.raise_for_status()
             FileHandler.write_json(filename, response.json())
             return True
         except requests.exceptions.HTTPError as e:
-            print(f"Error al obtener {filename}: {e}")
+            #print(f"Error HTTP: {e}")
             return False
 
     def fetch_student_data(self):

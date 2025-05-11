@@ -16,23 +16,19 @@ def menu():
         
         if choice == "1":
             client = APIClient()
-            try:
-                if client.fetch_student_data():
-                    SubjectTable().display_table()
-                else:
-                    print("No se encontraron materias para el estudiante.")
-            except Exception as e:
-                print(f"Error al obtener los datos del estudiante: {e}")
+            if client.fetch_student_data():
+                SubjectTable().display_table()
+            else:
+                print("No se encontraron materias para el estudiante.")
+                
         elif choice == "2":
             subject_id = input("Ingrese el ID de la materia para ver asistencias: ")
             client = APIClient()
-            try:
-                if client.fetch_assistances_data(subject_id):
-                    AssistancesTable().display_table()
-                else:
-                    print("No se encontraron asistencias para la materia con ID:", subject_id)
-            except Exception as e:
-                print(f"Error al obtener los datos de asistencias: {e}")
+            if client.fetch_assistances_data(subject_id):
+                AssistancesTable().display_table()
+            else:
+                print("No se encontraron asistencias para la materia con ID:", subject_id)
+                
         elif choice == "3":
             print("Saliendo del programa...")
             break
