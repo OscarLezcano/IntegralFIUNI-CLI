@@ -2,3 +2,6 @@
 assistances.json
 student.json
 __pycache__/
+*.pyc
+*.pyo
+*.pyd
