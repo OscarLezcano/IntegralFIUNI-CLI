@@ -24,7 +24,7 @@ def menu():
 
         console.print(Rule(style="dim"))
         
-        # Opciones alineadas a la izquierda
+        # Opciones del menú
         console.print("[bold green][1][/bold green] 📚 Mostrar tabla de materias")
         console.print("[bold green][2][/bold green] 📅 Mostrar tabla de asistencias")
         console.print("[bold green][3][/bold green] 🚪 Salir")
