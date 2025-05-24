@@ -4,10 +4,22 @@ from src.utils.file_handler import FileHandler
 from src.models.assistence import Assistance
 
 class AssistancesTable:
+    """
+    Clase para mostrar la tabla de asistencias de una materia en la consola.
+    Utiliza Rich para el formateo de la tabla.
+    """
     def __init__(self):
+        """
+        Inicializa la clase con la ruta al archivo JSON de asistencias.
+        """
         self.file_path = "assistances.json"
 
     def load_assistances(self):
+        """
+        Carga los datos de asistencias desde el archivo JSON y los convierte en objetos Assistance.
+        Returns:
+            list[Assistance]: Lista de objetos Assistance.
+        """
         data = FileHandler.read_json(self.file_path)
         assistances = data["assists"]
         
@@ -22,6 +34,9 @@ class AssistancesTable:
         ]
     
     def display_table(self):
+        """
+        Muestra la tabla de asistencias en la consola, incluyendo estadísticas de presentes y ausentes.
+        """
         assistances = self.load_assistances()
         table = Table()
 

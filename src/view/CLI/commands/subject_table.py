@@ -4,10 +4,23 @@ from src.utils.file_handler import FileHandler
 from src.models.subject import Subject
 
 class SubjectTable:
+    """
+    Clase para mostrar la tabla de materias del estudiante en la consola.
+    Utiliza Rich para el formateo de la tabla.
+    """
+
     def __init__(self):
+        """
+        Inicializa la clase con la ruta al archivo JSON de materias.
+        """
         self.file_path = "student.json"
 
     def load_students(self):
+        """
+        Carga los datos de materias desde el archivo JSON y los convierte en objetos Subject.
+        Returns:
+            list[Subject]: Lista de objetos Subject.
+        """
         data = FileHandler.read_json(self.file_path)
         return [
             Subject(
@@ -20,6 +33,9 @@ class SubjectTable:
         ]
 
     def display_table(self):
+        """
+        Muestra la tabla de materias en la consola con colores según el porcentaje de asistencia.
+        """
         students = self.load_students()
         table = Table()
 

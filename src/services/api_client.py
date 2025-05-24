@@ -4,6 +4,10 @@ from dotenv import load_dotenv
 from src.utils.file_handler import FileHandler
 
 class APIClient:
+    """
+    Cliente para interactuar con la API de FIUNI.
+    Permite obtener materias y asistencias del estudiante y guardar los datos en archivos JSON.
+    """
     def __init__(self):
         """
         Inicializa el cliente de la API cargando las variables de entorno, configurando
@@ -22,7 +26,7 @@ class APIClient:
             "Authorization": f"Bearer {self._token}",
             "Content-Type": "application/json"
         }
-        self._base_url = "https://fiunisys.azurewebsites.net/api/"
+        self._base_url = "https://integral.fiuni.edu.py/api/"
         self._default_payload = {
             "page": 1,
             "pageSize": 25,

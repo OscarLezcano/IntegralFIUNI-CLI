@@ -5,8 +5,8 @@ from rich.text import Text
 from rich.align import Align
 from rich.rule import Rule
 
-from src.CLI.commands.subject_table import SubjectTable
-from src.CLI.commands.assistance_table import AssistancesTable
+from src.view.CLI.commands.subject_table import SubjectTable
+from src.view.CLI.commands.assistance_table import AssistancesTable
 from src.services.api_client import APIClient
 
 console = Console()
@@ -14,6 +14,10 @@ console = Console()
 def menu():
     """
     Muestra el menú principal y permite al usuario seleccionar opciones.
+    Opciones:
+        1. Mostrar tabla de materias
+        2. Mostrar tabla de asistencias
+        3. Salir
     """
     while True:
         console.clear()
@@ -28,13 +32,14 @@ def menu():
         console.print("[bold green][1][/bold green] 📚 Mostrar tabla de materias")
         console.print("[bold green][2][/bold green] 📅 Mostrar tabla de asistencias")
         console.print("[bold green][3][/bold green] 🚪 Salir")
-        
+
         console.print(Rule(style="dim"))
 
         choice = Prompt.ask("\n[bold]Seleccione una opción[/bold]", choices=["1", "2", "3"], default="3")
 
         if choice == "1":
             client = APIClient()
+            console.print(Panel("🔄 Cargando...", style="bold yellow"))
             if client.fetch_student_data():
                 console.print(Panel("📚 Materias encontradas", style="bold cyan"))
                 SubjectTable().display_table()
@@ -45,6 +50,7 @@ def menu():
         elif choice == "2":
             subject_id = Prompt.ask("🆔 Ingrese el ID de la materia para ver asistencias")
             client = APIClient()
+            console.print(Panel("🔄 Cargando...", style="bold yellow"))
             if not subject_id:
                 console.print("[red]⚠️ El ID de la materia no puede estar vacío.[/red]")
                 continue
