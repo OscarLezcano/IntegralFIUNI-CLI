@@ -5,8 +5,8 @@ from rich.text import Text
 from rich.align import Align
 from rich.rule import Rule
 
-from src.view.CLI.commands.subject_table import SubjectTable
-from src.view.CLI.commands.assistance_table import AssistancesTable
+from src.view.cli.commands.subject_table import SubjectTable
+from src.view.cli.commands.assistance_table import AssistancesTable
 from src.services.api_client import APIClient
 
 console = Console()
