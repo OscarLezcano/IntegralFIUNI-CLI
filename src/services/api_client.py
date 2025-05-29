@@ -83,10 +83,20 @@ class APIClient:
         """
 
         if not subject_id:
-            raise ValueError("El subject_id no puede estar vacío")
+            raise ValueError("El id de la materia no puede estar vacío")
 
         endpoint = f"assistances/{subject_id}/my"
         url = self._base_url + endpoint
 
         response = requests.post(url, headers=self._headers, json=self._default_payload)
         return self.__save_json("assistances.json", response)
+
+    def fetch_homework_data(self, subject_id):
+        if not subject_id:
+            raise ValueError("El id de la materia no puede estar vacío")
+        
+        endpoint = f"MateriasPeriodo/{subject_id}/homework/my"
+        url = self._base_url + endpoint
+
+        response = requests.post(url, headers=self._headers, json=self._default_payload)
+        return self.__save_json("homework.json", response)

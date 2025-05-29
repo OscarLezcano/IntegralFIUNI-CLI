@@ -7,3 +7,6 @@ __pycache__/
 *.pyd
 integralcli
 integralcli.bat
+test.py
+main_test.py
+homework.json
