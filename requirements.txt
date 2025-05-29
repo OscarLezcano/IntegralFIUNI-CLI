@@ -2,3 +2,4 @@ requests
 python-dotenv
 rich
 json
+dotenv
