@@ -7,60 +7,72 @@ from rich.rule import Rule
 
 from src.view.cli.commands.subject_table import SubjectTable
 from src.view.cli.commands.assistance_table import AssistancesTable
+from src.view.cli.commands.homework_table import HomeworkTable
 from src.services.api_client import APIClient
 
 console = Console()
+client = APIClient()
+
+def show_subjects():
+    console.print(Panel("🔄 Cargando...", style="bold yellow"))
+    if client.fetch_student_data():
+        console.print(Panel("📚 Materias encontradas", style="bold cyan"))
+        SubjectTable().display_table()
+    else:
+        console.print("[red]⚠️ No se encontraron materias para el estudiante.[/red]")
+    console.input("\nPresione [bold]Enter[/bold] para volver al menú...")
+
+def show_assistances():
+    subject_id = Prompt.ask("🆔 Ingrese el ID de la materia para ver asistencias")
+    console.print(Panel("🔄 Cargando...", style="bold yellow"))
+    if not subject_id:
+        console.print("[red]⚠️ El ID de la materia no puede estar vacío.[/red]")
+        return
+    elif client.fetch_assistances_data(subject_id):
+        console.print(Panel(f"📅 Asistencias para la materia con ID: {subject_id}", style="bold cyan"))
+        AssistancesTable().display_table()
+    else:
+        console.print(f"[red]⚠️ No se encontraron asistencias para la materia con ID: {subject_id}[/red]")
+    console.input("\nPresione [bold]Enter[/bold] para volver al menú...")
+
+def show_homework():
+    subject_id = Prompt.ask("🆔 Ingrese el ID de la materia para ver tareas")
+    console.print(Panel("🔄 Cargando...", style="bold yellow"))
+    if not subject_id:
+        console.print("[red]⚠️ El ID de la materia no puede estar vacío.[/red]")
+        return
+    elif client.fetch_homework_data(subject_id):
+        console.print(Panel(f"📝 Tareas para la materia con ID: {subject_id}", style="bold cyan"))
+        HomeworkTable().display_table()
+    else:
+        console.print(f"[red]⚠️ No se encontraron tareas para la materia con ID: {subject_id}[/red]")
+    console.input("\nPresione [bold]Enter[/bold] para volver al menú...")
+
+def exit_program():
+    console.print("\n[bold yellow]👋 Saliendo del programa...[/bold yellow]\n")
+    return True
+
+menu_options = {
+    "1": ("📚 Mostrar tabla de materias", show_subjects),
+    "2": ("📅 Mostrar tabla de asistencias", show_assistances),
+    "3": ("📝 Mostrar tabla de tareas", show_homework),
+    "4": ("🚪 Salir", exit_program)
+}
 
 def menu():
-    """
-    Muestra el menú principal y permite al usuario seleccionar opciones.
-    Opciones:
-        1. Mostrar tabla de materias
-        2. Mostrar tabla de asistencias
-        3. Salir
-    """
     while True:
         console.clear()
-        
-        # Título centrado
         title = Text("📘 Menú Principal", justify="center", style="bold magenta")
         console.print(Panel(Align.center(title), border_style="bright_cyan"))
-
-        console.print(Rule(style="dim"))
-        
-        # Opciones del menú
-        console.print("[bold green][1][/bold green] 📚 Mostrar tabla de materias")
-        console.print("[bold green][2][/bold green] 📅 Mostrar tabla de asistencias")
-        console.print("[bold green][3][/bold green] 🚪 Salir")
-
         console.print(Rule(style="dim"))
 
-        choice = Prompt.ask("\n[bold]Seleccione una opción[/bold]", choices=["1", "2", "3"], default="3")
+        for nro, (desc, _) in menu_options.items():
+            console.print(f"[bold green][{nro}][/bold green] {desc}")
 
-        if choice == "1":
-            client = APIClient()
-            console.print(Panel("🔄 Cargando...", style="bold yellow"))
-            if client.fetch_student_data():
-                console.print(Panel("📚 Materias encontradas", style="bold cyan"))
-                SubjectTable().display_table()
-            else:
-                console.print("[red]⚠️ No se encontraron materias para el estudiante.[/red]")
-            console.input("\nPresione [bold]Enter[/bold] para volver al menú...")
+        console.print(Rule(style="dim"))
+        choice = Prompt.ask("\n[bold]Seleccione una opción[/bold]", choices=list(menu_options.keys()), default="4")
 
-        elif choice == "2":
-            subject_id = Prompt.ask("🆔 Ingrese el ID de la materia para ver asistencias")
-            client = APIClient()
-            console.print(Panel("🔄 Cargando...", style="bold yellow"))
-            if not subject_id:
-                console.print("[red]⚠️ El ID de la materia no puede estar vacío.[/red]")
-                continue
-            elif client.fetch_assistances_data(subject_id):
-                console.print(Panel(f"📅 Asistencias para la materia con ID: {subject_id}", style="bold cyan"))
-                AssistancesTable().display_table()
-            else:
-                console.print(f"[red]⚠️ No se encontraron asistencias para la materia con ID: {subject_id}[/red]")
-            console.input("\nPresione [bold]Enter[/bold] para volver al menú...")
-
-        elif choice == "3":
-            console.print("\n[bold yellow]👋 Saliendo del programa...[/bold yellow]\n")
+        _, action = menu_options[choice]
+        should_exit = action()
+        if should_exit:
             break
