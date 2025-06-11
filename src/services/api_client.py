@@ -112,13 +112,23 @@ class APIClient:
         if not id_exam:
             raise ValueError("El id del examen no puede estar vacío")
 
+        if  self.fetch_derecho_examenes_data() == False:
+            raise ValueError("No se pudo obtener los derechos a examenes, verifique su conexión a internet o el token de la API")
+        
+        exams = FileHandler.read_json("mis_derechos_a_examenes.json")
+
+        student_id = exams.get("items", [{}])[0].get("studentId")
+
+        if not student_id:
+            raise ValueError("No se pudo obtener el ID del estudiante de los derechos a exámenes")
+
         endpoint = f"inscripcionexamen/inscribirme"
         url = self._base_url + endpoint
 
         payload = {
             "examenId": int(id_exam),
             "id" : 0,
-            "perfilAlumnoId": 1068, # Este ID debe ser dinámico o configurado adecuadamente
+            "perfilAlumnoId": student_id,
             "calificacon": 0
         }
 
