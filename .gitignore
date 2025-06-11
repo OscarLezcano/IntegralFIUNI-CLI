@@ -1,0 +1,15 @@
+.env
+assistances.json
+student.json
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+integralcli
+integralcli.bat
+test.py
+main_test.py
+homework.json
+build/
+dist/
+main.spec
