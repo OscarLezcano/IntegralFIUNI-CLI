@@ -136,25 +136,17 @@ class APIClient:
         return response.status_code == 200
     
     def enroll_all_exams(self):
-        if self.fetch_derecho_examen_data() == False:
+        if not self.fetch_derecho_examen_data():
             raise ValueError("No se pudo obtener los derechos a examenes, verifique su conexión a internet o el token de la API")
         
         exams = FileHandler.read_json("mis_derechos_a_examenes.json")
+        exam_items = exams.get("items", [])
+        results = []
 
-        student_id = exams.get("items", [{}])[0].get("studentId")
-
-        if not student_id:
-            raise ValueError("No se pudo obtener el ID del estudiante de los derechos a exámenes")
-
-        endpoint = f"inscripcionexamen/inscribirme"
-        url = self._base_url + endpoint
-
-        payload = {
-            "examenId": 0,
-            "id" : 0,
-            "perfilAlumnoId": student_id,
-            "calificacon": 0
-        }
-
-        response = requests.post(url, headers=self._headers, json=payload)
-        return response.status_code == 200
+        for exam in exam_items:
+            exam_id = exam.get("examenId")
+            if exam_id:
+                result = self.enroll_exam(exam_id)
+                results.append({"examenId": exam_id, "success": result})
+        
+        return results
