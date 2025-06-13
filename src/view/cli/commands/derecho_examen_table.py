@@ -37,12 +37,15 @@ class DerechoExamenTable:
         table.add_column("Instancia", justify="center")
 
         for exam in der_exams:
-            # Que genio que es chatGPT, mira un poco como uso las variables
             instancia_color = "green"
             if exam.instancia == "Invalido":
                 instancia_color = "red"
             elif exam.instancia == "Recuperatorio":
                 instancia_color = "yellow"
+
+            fecha_inscripcion_color = "green"
+            if exam.fecha_inscripcion == "No Inscripto":
+                fecha_inscripcion_color = "red"
 
             table.add_row(
                 str(exam.id_examenes),
@@ -51,7 +54,7 @@ class DerechoExamenTable:
                 str(exam.porcentaje_asistencia),
                 exam.fecha_examen,
                 exam.fecha_limite_inscripcion,
-                exam.fecha_inscripcion,
+                f"[{fecha_inscripcion_color}]{exam.fecha_inscripcion}[/{fecha_inscripcion_color}]",	
                 f"[{instancia_color}]{exam.instancia}[/{instancia_color}]",
                 end_section=True
             )

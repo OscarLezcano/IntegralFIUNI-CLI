@@ -23,13 +23,13 @@ def show_subjects():
         console.print("[red]⚠️ No se encontraron materias para el estudiante.[/red]")
     console.input("\nPresione [bold]Enter[/bold] para volver al menú...")
 
-def show_assistances():
+def show_assistance():
     subject_id = Prompt.ask("🆔 Ingrese el ID de la materia para ver asistencias")
     console.print(Panel("🔄 Cargando...", style="bold yellow"))
     if not subject_id:
         console.print("[red]⚠️ El ID de la materia no puede estar vacío.[/red]")
         return
-    elif client.fetch_assistances_data(subject_id):
+    elif client.fetch_assistance_data(subject_id):
         console.print(Panel(f"📅 Asistencias para la materia con ID: {subject_id}", style="bold cyan"))
         AssistancesTable().display_table()
     else:
@@ -49,13 +49,33 @@ def show_homework():
         console.print(f"[red]⚠️ No se encontraron tareas para la materia con ID: {subject_id}[/red]")
     console.input("\nPresione [bold]Enter[/bold] para volver al menú...")
 
-def show_derecho_examenes():
+def show_derecho_examen():
     console.print(Panel("🔄 Cargando...", style="bold yellow"))
-    if client.fetch_derecho_examenes_data():
+    if client.fetch_derecho_examen_data():
         console.print(Panel("📘 Derechos a Exámenes encontrados", style="bold cyan"))
         DerechoExamenTable().display_table()
     else:
         console.print("[red]⚠️ No se encontraron derechos a exámenes para el estudiante.[/red]")
+    console.input("\nPresione [bold]Enter[/bold] para volver al menú...")
+
+def enroll_exam():
+    console.print(Panel("🔄 Cargando...", style="bold yellow"))
+    exam_id = Prompt.ask("🆔 Ingrese el ID del examen que desea inscribir")
+    if not exam_id:
+        console.print("[red]⚠️ El ID del examen no puede estar vacío.[/red]")
+        return
+    if client.enroll_exam(exam_id):
+        console.print(f"[green]✅ Inscripción exitosa al examen con ID: {exam_id}[/green]")
+    else:
+        console.print(f"[red]⚠️ Error al inscribir al examen con ID: {exam_id}[/red]")
+    console.input("\nPresione [bold]Enter[/bold] para volver al menú...")
+
+def enroll_all_exams():
+    console.print(Panel("🔄 Cargando...", style="bold yellow"))
+    if client.enroll_all_exams():
+        console.print("[green]✅ Inscripción exitosa a todos los exámenes disponibles[/green]")
+    else:
+        console.print("[red]⚠️ Error al inscribir a los exámenes[/red]")
     console.input("\nPresione [bold]Enter[/bold] para volver al menú...")
 
 def exit_program():
@@ -64,16 +84,18 @@ def exit_program():
 
 menu_options = {
     "1": ("📚 Mostrar tabla de materias", show_subjects),
-    "2": ("📅 Mostrar tabla de asistencias", show_assistances),
+    "2": ("📅 Mostrar tabla de asistencias", show_assistance),
     "3": ("📝 Mostrar tabla de tareas", show_homework),
-    "4": ("📘 Mostrar derechos a exámenes", show_derecho_examenes),
-    "5": ("🚪 Salir", exit_program)
+    "4": ("📘 Mostrar derechos a exámenes", show_derecho_examen),
+    "5": ("☑️ Inscribirte a un examen", enroll_exam),
+    "6": ("☑️ Inscribirte a todos los exámenes disponibles", enroll_all_exams),
+    "7": ("🚪 Salir", exit_program)
 }
 
 def menu():
     while True:
         console.clear()
-        title = Text("📘 Menú Principal", justify="center", style="bold magenta")
+        title = Text("BIENVENIDO A INTEGRAL CLI", justify="center", style="bold magenta")
         console.print(Panel(Align.center(title), border_style="bright_cyan"))
         console.print(Rule(style="dim"))
 

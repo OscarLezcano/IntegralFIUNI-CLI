@@ -68,7 +68,7 @@ class APIClient:
         response = requests.post(url, headers=self._headers, json={})
         return self.__save_json("student.json", response)
 
-    def fetch_assistances_data(self, subject_id):
+    def fetch_assistance_data(self, subject_id):
         """
         Obtiene datos de asistencias para una materia específica.
         Este método envía una solicitud POST a la API para recuperar datos de asistencias
@@ -101,18 +101,18 @@ class APIClient:
         response = requests.post(url, headers=self._headers, json=self._default_payload)
         return self.__save_json("homework.json", response)
     
-    def fetch_derecho_examenes_data(self):
+    def fetch_derecho_examen_data(self):
         endpoint = "studentsubjects/mis_derechos_a_examenes"
         url = self._base_url + endpoint
 
         response = requests.post(url, headers=self._headers, json=self._default_payload)
         return self.__save_json("mis_derechos_a_examenes.json", response)
 
-    def enroll_exams(self, id_exam):
+    def enroll_exam(self, id_exam):
         if not id_exam:
             raise ValueError("El id del examen no puede estar vacío")
 
-        if  self.fetch_derecho_examenes_data() == False:
+        if  self.fetch_derecho_examen_data() == False:
             raise ValueError("No se pudo obtener los derechos a examenes, verifique su conexión a internet o el token de la API")
         
         exams = FileHandler.read_json("mis_derechos_a_examenes.json")
@@ -135,3 +135,26 @@ class APIClient:
         response = requests.post(url, headers=self._headers, json=payload)
         return response.status_code == 200
     
+    def enroll_all_exams(self):
+        if self.fetch_derecho_examen_data() == False:
+            raise ValueError("No se pudo obtener los derechos a examenes, verifique su conexión a internet o el token de la API")
+        
+        exams = FileHandler.read_json("mis_derechos_a_examenes.json")
+
+        student_id = exams.get("items", [{}])[0].get("studentId")
+
+        if not student_id:
+            raise ValueError("No se pudo obtener el ID del estudiante de los derechos a exámenes")
+
+        endpoint = f"inscripcionexamen/inscribirme"
+        url = self._base_url + endpoint
+
+        payload = {
+            "examenId": 0,
+            "id" : 0,
+            "perfilAlumnoId": student_id,
+            "calificacon": 0
+        }
+
+        response = requests.post(url, headers=self._headers, json=payload)
+        return response.status_code == 200
