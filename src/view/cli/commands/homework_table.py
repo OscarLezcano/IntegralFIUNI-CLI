@@ -53,7 +53,7 @@ class HomeworkTable:
                 hw.tipo,
                 str(hw.puntaje_obtenido),
                 str(hw.puntaje_total),
-                f"{hw.peso:.2f}"
+                f"{int(hw.peso)}%"
             )
 
         console = Console()

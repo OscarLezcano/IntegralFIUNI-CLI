@@ -8,6 +8,7 @@ from rich.rule import Rule
 from src.view.cli.commands.subject_table import SubjectTable
 from src.view.cli.commands.assistance_table import AssistancesTable
 from src.view.cli.commands.homework_table import HomeworkTable
+from src.view.cli.commands.exam_table import ExamTable
 from src.services.api_client import APIClient
 from src.view.cli.commands.derecho_examen_table import DerechoExamenTable
 
@@ -49,6 +50,15 @@ def show_homework():
         console.print(f"[red]⚠️ No se encontraron tareas para la materia con ID: {subject_id}[/red]")
     console.input("\nPresione [bold]Enter[/bold] para volver al menú...")
 
+def show_exams():
+    console.print(Panel("🔄 Cargando...", style="bold yellow"))
+    if client.fetch_exam_data():
+        console.print(Panel("📅 Exámenes encontrados", style="bold cyan"))
+        ExamTable().display_table()
+    else:
+        console.print("[red]⚠️ No se encontraron exámenes para el estudiante.[/red]")
+    console.input("\nPresione [bold]Enter[/bold] para volver al menú...")
+
 def show_derecho_examen():
     console.print(Panel("🔄 Cargando...", style="bold yellow"))
     if client.fetch_derecho_examen_data():
@@ -72,11 +82,13 @@ def enroll_exam():
 
 def enroll_all_exams():
     console.print(Panel("🔄 Cargando...", style="bold yellow"))
-    if client.enroll_all_exams():
-        console.print("[green]✅ Inscripción exitosa a todos los exámenes disponibles[/green]")
-    else:
-        console.print("[red]⚠️ Error al inscribir a los exámenes[/red]")
+    exams = client.enroll_all_exams()
+    console.print("[green]\nSe te ha inscripto a los siguientes examenes:[/green]")
+    for exam in exams:
+        if exam['success']:
+            console.print(f"[yellow]\t*{exam['materia']}[/yellow]")
     console.input("\nPresione [bold]Enter[/bold] para volver al menú...")
+
 
 def exit_program():
     console.print("\n[bold yellow]👋 Saliendo del programa...[/bold yellow]\n")
@@ -86,10 +98,11 @@ menu_options = {
     "1": ("📚 Mostrar tabla de materias", show_subjects),
     "2": ("📅 Mostrar tabla de asistencias", show_assistance),
     "3": ("📝 Mostrar tabla de tareas", show_homework),
-    "4": ("📘 Mostrar derechos a exámenes", show_derecho_examen),
-    "5": ("☑️ Inscribirte a un examen", enroll_exam),
-    "6": ("☑️ Inscribirte a todos los exámenes disponibles", enroll_all_exams),
-    "7": ("🚪 Salir", exit_program)
+    "4": ("📅 Mostrar tabla de exámenes", show_exams),
+    "5": ("📘 Mostrar derechos a exámenes", show_derecho_examen),
+    "6": ("☑️ Inscribirte a un examen", enroll_exam),
+    "7": ("☑️ Inscribirte a todos los exámenes disponibles", enroll_all_exams),
+    "8": ("🚪 Salir", exit_program)
 }
 
 def menu():

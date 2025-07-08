@@ -16,22 +16,35 @@ class APIClient:
         Raises:
             ValueError: Si la variable de entorno FIUNI_TOKEN no está configurada en el archivo .env.
         """
-        
-        load_dotenv()
-        self._token = os.getenv("FIUNI_TOKEN")
-        if not self._token:
-            raise ValueError("El token FIUNI_TOKEN no está configurado en el archivo .env")
+
+        self._base_url = "https://integral.fiuni.edu.py/api/"
+        self._token = self.__get_token()
 
         self._headers = {
             "Authorization": f"Bearer {self._token}",
             "Content-Type": "application/json"
         }
-        self._base_url = "https://integral.fiuni.edu.py/api/"
+        
         self._default_payload = {
             "page": 1,
             "pageSize": 25,
             "filters": {}
         }
+
+    def __get_token(self):
+        load_dotenv()
+        email = os.getenv("email")
+        password = os.getenv("password")
+
+        if not email or not password:
+            raise ValueError("Las credenciales de inicio de sesión no están configuradas en el archivo .env")
+
+        url = self._base_url + "usuarios/login"
+        payload = {"email": email, "password": password, "loggingIn" : False}
+
+        response = requests.post(url, json=payload)
+        
+        return response.json().get("token")
 
     def __save_json(self, filename, response): 
         """
@@ -108,6 +121,13 @@ class APIClient:
         response = requests.post(url, headers=self._headers, json=self._default_payload)
         return self.__save_json("mis_derechos_a_examenes.json", response)
 
+    def fetch_exam_data(self):
+        endpoint = "inscripcionexamen/my-exams"
+        url = self._base_url + endpoint
+
+        response = requests.post(url, headers=self._headers, json={})
+        return self.__save_json("exams.json", response)
+
     def enroll_exam(self, id_exam):
         if not id_exam:
             raise ValueError("El id del examen no puede estar vacío")
@@ -147,6 +167,9 @@ class APIClient:
             exam_id = exam.get("examenId")
             if exam_id:
                 result = self.enroll_exam(exam_id)
-                results.append({"examenId": exam_id, "success": result})
+                results.append({
+                    "materia": exam.get("materia"),
+                    "id": exam_id, 
+                    "success": result})
         
         return results
