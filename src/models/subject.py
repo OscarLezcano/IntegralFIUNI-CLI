@@ -7,8 +7,8 @@ class Subject:
         Inicializa un objeto Subject.
         Args:
             nombre_materia (str): Nombre de la materia.
-            porcentaje_pp (float): Porcentaje de PP.
-            porcentaje_asistencia (float): Porcentaje de asistencia.
+            porcentaje_pp (int): Porcentaje de PP.
+            porcentaje_asistencia (int): Porcentaje de asistencia.
             materia_periodo_id (str, optional): ID de la materia en el periodo.
             assistence (assistence, optional): Clase(de python) de asistencias asociada.
             homework(homework, optional): Clase(de python) de tarea asociada.

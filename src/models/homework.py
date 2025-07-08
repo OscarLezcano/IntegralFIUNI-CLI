@@ -8,9 +8,9 @@ class Homework:
         Args:
             nombre (str): Nombre de la tarea.
             tipo (str): Tipo de tarea (por ejemplo, examen, TP, etc).
-            puntaje_obtenido (float): Puntaje obtenido.
-            puntaje_total (float): Puntaje total posible.
-            peso (float): Peso de la tarea en porcentaje.
+            puntaje_obtenido (int): Puntaje obtenido.
+            puntaje_total (int): Puntaje total posible.
+            peso (int): Peso de la tarea en porcentaje.
         """
         self.nombre = nombre
         self.tipo = tipo
