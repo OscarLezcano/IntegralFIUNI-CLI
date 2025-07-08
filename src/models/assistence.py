@@ -9,7 +9,7 @@ class Assistance:
         Inicializa un objeto Assistance.
         Args:
             date (str): Fecha de la asistencia en formato ISO.
-            present (bool): True si estuvo presente, False si estuvo ausente.
+            present (bool): True si estuvo presente, False si estuvo ausente, luego esto se guarda como "Sí" o "No".
         """
         self.date = datetime.strptime(date, "%Y-%m-%dT%H:%M:%S").strftime("%d/%m/%Y")
         self.present = "Sí" if present else "No"
