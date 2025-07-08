@@ -1,10 +1,7 @@
 .env
 assistances.json
 student.json
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
+**/__pycache__/
 integralcli
 integralcli.bat
 test.py

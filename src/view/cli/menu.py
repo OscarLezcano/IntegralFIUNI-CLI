@@ -73,8 +73,7 @@ def enroll_exam():
     exam_id = Prompt.ask("🆔 Ingrese el ID del examen que desea inscribir")
     if not exam_id:
         console.print("[red]⚠️ El ID del examen no puede estar vacío.[/red]")
-        return
-    if client.enroll_exam(exam_id):
+    elif client.enroll_exam(exam_id):
         console.print(f"[green]✅ Inscripción exitosa al examen con ID: {exam_id}[/green]")
     else:
         console.print(f"[red]⚠️ Error al inscribir al examen con ID: {exam_id}[/red]")
@@ -98,7 +97,7 @@ menu_options = {
     "1": ("📚 Mostrar tabla de materias", show_subjects),
     "2": ("📅 Mostrar tabla de asistencias", show_assistance),
     "3": ("📝 Mostrar tabla de tareas", show_homework),
-    "4": ("📅 Mostrar tabla de exámenes", show_exams),
+    "4": ("📤 Mostrar tabla de exámenes", show_exams),
     "5": ("📘 Mostrar derechos a exámenes", show_derecho_examen),
     "6": ("☑️ Inscribirte a un examen", enroll_exam),
     "7": ("☑️ Inscribirte a todos los exámenes disponibles", enroll_all_exams),
