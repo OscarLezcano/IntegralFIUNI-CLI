@@ -15,6 +15,7 @@ Si estas en Windows y quieres ejecutar el programa en cualquier parte, debes cre
 del programa con el siguientecontenido
 
 @echo off
+
 python "C:\Users\oscar\Documents\Proyectos\NO UNI\IntegralFIUNI-CLI\main.py"
 
 Seguido de esto configuras el patch y listo
