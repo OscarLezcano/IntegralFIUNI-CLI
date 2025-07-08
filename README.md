@@ -1,9 +1,12 @@
 Como se instala:
 
 1- Instala python 3.13 o superior
+
 2- Descarga el proyecto, descomprimelo y seguido a eso ejecula el comando 
 "pip install -r requirements.txt" en la raiz del programa
+
 3- Crea un archivo con extencion .env copia y pega dentro el contenido de .env_example y completa los datos
+
 4- Seguido de esto ya puedes ejecutar el main.py para probarlo (dentro de la carpeta abre la terminal y escribe "python main.py")
 
 Opcional:
