@@ -36,7 +36,7 @@ class SubjectTable:
         """
         Muestra la tabla de materias en la consola con colores según el porcentaje de asistencia.
         """
-        students = self.load()
+        students = self.load()[::-1]
         table = Table()
 
         # Agregar encabezados

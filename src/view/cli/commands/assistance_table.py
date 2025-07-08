@@ -37,7 +37,7 @@ class AssistancesTable:
         """
         Muestra la tabla de asistencias en la consola, incluyendo estadísticas de presentes y ausentes.
         """
-        assistances = self.load()
+        assistances = self.load()[::-1]
         table = Table()
 
         # Agregar encabezado

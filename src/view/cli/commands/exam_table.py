@@ -25,7 +25,7 @@ class ExamTable:
         ]
     
     def display_table(self):
-        exams = self.load()
+        exams = self.load()[::-1]
         table = Table()
         table.add_column("ID", justify="center")
         table.add_column("Materia", justify="center")
