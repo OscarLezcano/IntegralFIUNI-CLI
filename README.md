@@ -22,11 +22,12 @@
 
 ### Opcional: Ejecutar desde cualquier parte en Windows
 
-1. Crea un archivo llamado `integralcli.bat` en la raíz del programa con el siguiente contenido (ajusta la ruta según donde tengas el proyecto):
+1. Crea un archivo llamado `integralcli.bat` en la raíz del programa con el siguiente contenido :
 
    ```bat
    @echo off
-   python "C:\Ruta\Donde\Tengas\Descargado\IntegralFIUNI-CLI\main.py"
+   python @echo off
+   python "%~dp0main.py"
    ```
 
 2. Agrega la ruta del proyecto a la variable de entorno `PATH` de Windows.
