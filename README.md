@@ -1,21 +1,36 @@
-Como se instala:
+# IntegralFIUNI-CLI
 
-1- Instala python 3.13 o superior
+## Instalación
 
-2- Descarga el proyecto, descomprimelo y seguido a eso ejecula el comando 
-"pip install -r requirements.txt" en la raiz del programa
+1. **Instala Python 3.13 o superior.**
 
-3- Crea un archivo con extencion .env copia y pega dentro el contenido de .env_example y completa los datos
+2. **Descarga el proyecto, descomprímelo y ejecuta el siguiente comando en la raíz del programa:**
+   ```sh
+   pip install -r requirements.txt
+   ```
 
-4- Seguido de esto ya puedes ejecutar el main.py para probarlo (dentro de la carpeta abre la terminal y escribe "python main.py")
+3. **Crea un archivo llamado `.env`, copia y pega dentro el contenido de `.env_example` y completa los datos necesarios.**
 
-Opcional:
+4. **Para ejecutar el programa:**
+   - Abre la terminal en la carpeta del proyecto.
+   - Escribe:
+     ```sh
+     python main.py
+     ```
 
-Si estas en Windows y quieres ejecutar el programa en cualquier parte, debes crear un archvio llamado integralcli.bat en la raiz
-del programa con el siguientecontenido
+---
 
-@echo off
+### Opcional: Ejecutar desde cualquier parte en Windows
 
-python "C:\Users\oscar\Documents\Proyectos\NO UNI\IntegralFIUNI-CLI\main.py"
+1. Crea un archivo llamado `integralcli.bat` en la raíz del programa con el siguiente contenido (ajusta la ruta según donde tengas el proyecto):
 
-Seguido de esto configuras el patch y listo
+   ```bat
+   @echo off
+   python "C:\Ruta\Donde\Tengas\Descargado\IntegralFIUNI-CLI\main.py"
+   ```
+
+2. Agrega la ruta del proyecto a la variable de entorno `PATH` de Windows.
+
+---
+
+¡Listo! Ahora puedes ejecutar el programa
