@@ -5,7 +5,7 @@ from src.models.derecho_examen import DerechoExamen
 
 class DerechoExamenTable:
     def __init__(self):
-        self.file_path = "mis_derechos_a_examenes.json"
+        self.file_path = ".mis_derechos_a_examenes.json"
 
     def load(self):
         data = FileHandler.read_json(self.file_path)

@@ -8,7 +8,7 @@ class HomeworkTable:
     Clase para mostrar la tabla de tareas en la consola.
     """
 
-    def __init__(self, file_path="homework.json"):
+    def __init__(self, file_path=".homework.json"):
         """
         Inicializa la clase con la ruta al archivo JSON de tareas.
         Args:

@@ -5,7 +5,7 @@ from src.models.exam import Exam
 
 class ExamTable:
     def __init__(self):
-        self.file_path = "exams.json"
+        self.file_path = ".exams.json"
 
     def load(self):
         data = FileHandler.read_json(self.file_path)

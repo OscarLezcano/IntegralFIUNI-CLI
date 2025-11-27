@@ -13,7 +13,7 @@ class SubjectTable:
         """
         Inicializa la clase con la ruta al archivo JSON de materias.
         """
-        self.file_path = "student.json"
+        self.file_path = ".student.json"
 
     def load(self):
         """

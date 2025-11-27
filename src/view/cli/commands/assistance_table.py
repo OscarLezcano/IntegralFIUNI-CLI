@@ -12,7 +12,7 @@ class AssistancesTable:
         """
         Inicializa la clase con la ruta al archivo JSON de asistencias.
         """
-        self.file_path = "assistances.json"
+        self.file_path = ".assistances.json"
 
     def load(self):
         """

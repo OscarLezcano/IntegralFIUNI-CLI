@@ -61,7 +61,7 @@ class APIClient:
         """
         try:
             response.raise_for_status()
-            FileHandler.write_json(filename, response.json())
+            FileHandler.write_json(f".{filename}", response.json())
             return True
         except requests.exceptions.HTTPError as e:
             #print(f"Error HTTP: {e}")
@@ -177,7 +177,7 @@ class APIClient:
         if  self.fetch_derecho_examen_data() == False:
             raise ValueError("No se pudo obtener los derechos a examenes, verifique su conexión a internet o el token de la API")
         
-        exams = FileHandler.read_json("mis_derechos_a_examenes.json")
+        exams = FileHandler.read_json(".mis_derechos_a_examenes.json")
 
         # Si no existen examenes, no se puede inscribir
         if exams["items"] == []:
@@ -215,7 +215,7 @@ class APIClient:
         if not self.fetch_derecho_examen_data():
             raise ValueError("No se pudo obtener los derechos a examenes, verifique su conexión a internet o el token de la API")
         
-        exams = FileHandler.read_json("mis_derechos_a_examenes.json")
+        exams = FileHandler.read_json(".mis_derechos_a_examenes.json")
         exam_items = exams.get("items", [])
         results = []
 
