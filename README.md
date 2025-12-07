@@ -1,8 +1,8 @@
 # IntegralFIUNI-CLI
 
-## Que es??
+## ¿Que es?
 
-Es programa escrito en python que te permite ver tu informacion academica, inscribirte a examenes, etc.
+Es un programa escrito en python que te permite ver desde la terminal tu informacion academica, inscribirte a examenes, etc.
 <img src="/capturas_de_pantalla/Screenshot From 2025-12-07 10-19-16.png" />
 
 ### Pantalla principal
