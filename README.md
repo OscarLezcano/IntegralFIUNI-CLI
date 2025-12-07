@@ -1,5 +1,24 @@
 # IntegralFIUNI-CLI
 
+## Que es??
+
+Es programa escrito en python que te permite ver tu informacion academica, inscribirte a examenes, etc.
+<img src="/capturas_de_pantalla/Screenshot From 2025-12-07 10-19-16.png" />
+
+### Pantalla principal
+
+<img src="/capturas_de_pantalla/Screenshot From 2025-12-07 10-19-25.png" />
+
+### Mostrar materias
+
+<img src="/capturas_de_pantalla/Screenshot From 2025-12-07 10-20-20.png" />
+
+### Mostrar tareas
+
+<img src="/capturas_de_pantalla/Screenshot From 2025-12-07 10-20-04.png" />
+
+LES DEJO A USTEDES SEGUIR EXPLORANDO EL RESTO DE OPCIONES
+
 ## Instalación en Windows
 
 ### 1. Instala Python
@@ -48,4 +67,4 @@
 ---
 
 ¡Listo! El programa debería estar funcionando correctamente.  
-Si tienes problemas, revisa que Python y las dependencias estén correctamente instaladas y que el
+Si tienes problemas, revisa que Python y las dependencias estén correctamente instaladas
